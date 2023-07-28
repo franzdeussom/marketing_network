@@ -56,7 +56,6 @@ export class UpdatePackComponent {
     this.formUpdateControl.controls['description_globale'].setValue(this.packToUpdate.description_globale);
     this.formUpdateControl.controls['pourcentage'].setValue(this.packToUpdate.pourcentage);
     this.formUpdateControl.controls['pourcentageReduction'].setValue(this.packToUpdate.pourcentageReduction);
-    
   }
 
   update(){
@@ -75,15 +74,14 @@ export class UpdatePackComponent {
             }        
           }else{
              this.packService.activeAlertError('Le pourcentage de reduction ne peut etre supperieur ou egal au Pourcentage de gain')
-          }          }
-
+          }
         }else{
             this.packService.activeAlertError('Veuillez reverifier le pourcentage de reduction pour ce Pack');
         }
       }else{
         this.packService.activeAlertError('Veuillez reverifier le pourcentage pour ce Pack');
-      }
-    }else{
+      } 
+      } else{
       this.packService.activeAlertError(AlertMessage.ERROR_EMPTY_FIELD);
     }
   }
