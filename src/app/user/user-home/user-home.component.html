@@ -1,0 +1,61 @@
+<div>
+    <div>
+            <div class="container">
+              <div *ngIf="souscriptionSrv.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    <span> {{ souscriptionSrv.alert.errorMessage }} </span>
+                    <button type="button" (click)="souscriptionSrv.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              
+              <div *ngIf="souscriptionSrv.showAlertSucess"  class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                    <span> {{ souscriptionSrv.alert.successMessage}} </span>
+                    <button type="button" (click)="souscriptionSrv.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+              <div class="text-center">
+                <span *ngIf="packService.waitingResponse || souscriptionSrv.waitingResponse">
+                  <img src="../../../assets/loader.gif" alt="" width="30px">
+                </span>
+              </div>
+              
+
+                <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" style="margin-top: 10px;">
+                  
+                  <div class="col" *ngFor="let pack of packService.listPack" >
+                        <div class="card">
+                            <img [src]="pack.imgUrl" class="card-img-top"
+                              alt="Hollywood Sign on The Hill" style="height: 250px;"/>
+                            <div class="card-body">
+                              <h5 class="card-title"> {{ pack.intitule }} <em style="float: right;">{{ pack.prix }} XAF</em> </h5>
+                              <p class="card-text">
+                                {{ pack.description }}
+                              </p>
+                            </div>
+                            <div class="card-footer">
+                                <span> <button class="btn btn-primary" (click)="openeModal(modal, pack)"> Souscrire <i class="fa fa-plus" aria-hidden="true"></i> </button> </span>
+                            </div>
+                          </div>
+                    </div>
+                  
+                </div>
+
+                <ng-template class="modal fade" #modal let-modal>
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Confirmation Souscription</h5>
+                        <button type="button" class="close" data-dismiss="modal" (click)="closeModal()" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          {{ textConfirmation }}
+                      </div> 
+                      <div class="modal-footer">
+                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Quitter</button>
+
+                               <button (click)="doSuscription()" class="btn btn-primary">Confirmer</button>
+                       </div>                      
+                </ng-template>                
+            </div>
+    </div>
+</div>

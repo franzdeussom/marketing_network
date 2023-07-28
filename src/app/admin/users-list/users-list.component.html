@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="text-center">
+    <span *ngIf="adminAccount.waitingResponse">
+      <img src="../../../assets/loader.gif" alt="" width="30px">
+    </span>
+  </div>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" style="margin-top: 10px;">
+            
+         <div *ngFor="let user of adminAccount.listUserSuscribed">
+            <div class="col">
+                <div class="card">
+                    <div *ngIf="user.profilImgUrl != null; then profil else default"></div>
+                       
+                        <ng-template #profil>
+                          <div class="text-center">
+                            <img [src]="user.profilImgUrl"
+                            alt="Hollywood Sign on The Hill" style="height: 150px;" width="150"/>
+                          </div>
+                          
+                        </ng-template>
+
+                        <ng-template #default>
+                          <div class="text-center">
+                            <img src="../../../assets/avatar.png" alt=""
+                            alt="Hollywood Sign on The Hill" style="height: 150px;" width="150">
+                          </div>
+                              
+                        </ng-template>
+
+                    <div class="card-body">
+                      <h5 class="card-title text-center"><strong>{{ user.surname }} {{ user.username }}</strong>  </h5>
+                      <p class="card-text">
+                            <span>Telephone :    {{ user.tel }} </span> <br>
+                            <span> Email :    {{ user.email }}</span> <br>
+                            <span style="margin-top: 5px; font-weight: bold;" > Consulter la liste des packs souscrits par cet utilisateur </span>
+                      </p>
+    
+
+                      <button class="btn btn-primary" (click)="goToPackUserList(user.id, user)">Consulter ses packs  <i class="fa fa-eye" aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+             </div>
+           </div>
+        </div>
+</div>

@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary justify-content-center">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">PANCMIEW</a>
+  
+      <button class="navbar-toggler" type="button" (click)="showLink()" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar" #collapse> 
+      <div *ngIf="accountSrv.currentUsersData.role === role.USER; then userList else adminList"></div>
+
+        <ng-template #userList>
+          <ul class="navbar-nav" *ngFor="let item of routes" >
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="[item.route]" (click)="navigate(item.route)" [routerLinkActive]="'active badge bg-success'"> {{ item.name }}  <i [class]="item.iconClass" aria-hidden="true"></i></a>
+            </li>
+          </ul>
+        </ng-template>
+       
+        <ng-template #adminList>
+          <ul class="navbar-nav" *ngFor="let item of routeAdmin" >
+            <li class="nav-item">
+              
+              <a class="nav-link" [routerLink]="[item.route]" (click)="navigate(item.route)" [routerLinkActive]="'active badge bg-success'" > {{ item.name }}  <i [class]="item.iconClass" aria-hidden="true"></i></a>
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+
+      
+    </div>
+  </nav>
+  

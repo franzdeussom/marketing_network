@@ -1,0 +1,156 @@
+<div class="container">
+    <div *ngIf="souscriptionService.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fa fa-times-circle" aria-hidden="true"></i>
+        <span> {{ souscriptionService.alert.errorMessage }} </span>
+        <button type="button" (click)="souscriptionService.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   </div>
+   
+   <div *ngIf="souscriptionService.showAlertSucess"  class="alert alert-success alert-dismissible fade show" role="alert">
+       <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+        <span> {{ souscriptionService.alert.successMessage}} </span>
+        <button type="button" (click)="souscriptionService.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   </div>
+
+   <div class="text-center">
+        <span *ngIf="souscriptionService.waitingResponse">
+          <img src="../../../../assets/loader.gif" alt="" width="30px">
+        </span>
+    </div>
+
+   <div class="row" style="margin-top: 10px;">
+      <div class="col">
+        <button (click)="refresh()" style="float: right; margin-right: 5px;" class="btn btn-primary">
+             Actualiser  <i class="fa fa-refresh" aria-hidden="true"></i> 
+        </button>
+      </div>
+    </div>
+
+   <div *ngIf="souscriptionService.listSouscriptionRequest.length == 0">Aucune demande </div>
+    <div class="row height d-flex justify-content-center align-items-center" style="margin-top: 10px;" *ngIf="souscriptionService.listSouscriptionRequest.length > 1" >
+
+        <div class="search">
+          <input type="text" class="form-control" style="width: 100%;" (keyup)="doSearch()" [(ngModel)]="searchValue" placeholder="recherche une demande nom,type pack">
+        </div>
+        
+      </div>
+    
+    <div *ngIf="searchValue.length == 0; then mainList else searchList" ></div>
+
+
+    <ng-template #mainList>
+       <span style="margin-left: 10px;"> {{ souscriptionService.listSouscriptionRequest.length }} Demandes </span>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center" style="margin-top: 10px;">
+            <div class="col" *ngFor="let souscription of souscriptionService.listSouscriptionRequest" >
+                <div class="card">
+        
+                    <div *ngIf="souscription.profilImgUrl != null; then profilImg else defaultImg" ></div>
+                    
+                    <ng-template #profilImg>
+                      <div class="text-center">
+                        <img [src]="souscription.profilImgUrl" alt=""
+                        alt="Hollywood Sign on The Hill" style="height: 150px;" width="150">
+                      </div></ng-template>
+        
+                    <ng-template #defaultImg>
+                      <div class="text-center">
+                        <img src="../../../assets/avatar.png" alt=""
+                        alt="Hollywood Sign on The Hill" style="height: 150px;" width="150">
+                      </div>
+                    </ng-template>
+                    
+                    <div class="card-body">
+                      <h5 class="card-title text-center"> <strong>{{ souscription.username }} {{ souscription.surname }}</strong> </h5>
+                      <p class="card-text">
+                         telephone: {{ souscription.tel }} <br>
+        
+                         type de pack: <span style="font-weight: bold; font-size: 18px;"> {{ souscription.intitule }} </span> <br>
+                         
+                         Demande Effectue le : {{ souscription.create_at }}
+                      </p>
+                    </div>
+                    <div class="card-footer">
+                         <button class="btn btn-primary" (click)="openeModal(modalApprouve, souscription)"> Approuver <i class="fa fa-check-circle" aria-hidden="true"></i> </button>
+                         <button class="btn btn-danger" (click)="openDeleteModal(modalDelete, souscription)" style="float: right;">Supprimer  <i class="fa fa-trash" aria-hidden="true"></i> </button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        
+    </ng-template>
+
+
+
+    <ng-template #searchList>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center" style="margin-top: 10px;">
+            <div class="col" *ngFor="let souscription of listSearchRslt" >
+                <div class="card">
+        
+                    <div *ngIf="souscription.profilImgUrl != null; then profilImg else defaultImg" ></div>
+                    
+                    <ng-template #profilImg>
+                        <img [src]="souscription.profilImgUrl" class="card-img-top"
+                      alt="Profile" style="height: 250px;"/>
+                    </ng-template>
+        
+                    <ng-template #defaultImg>
+                        <img src="../../../assets/avatar.png" class="card-img-top"
+                        alt="Hollywood Sign on The Hill" style="height: 250px;"/>
+                    </ng-template>
+                    
+                    <div class="card-body">
+                      <h5 class="card-title"> {{ souscription.username }} {{ souscription.surname }}</h5>
+                      <p class="card-text">
+                         telephone: {{ souscription.tel }} <br>
+        
+                         type de pack: <span style="font-weight: bold; font-size: 18px;"> {{ souscription.intitule }} </span> <br>
+                         
+                         Demande Effectue le : {{ souscription.create_at }}
+                      </p>
+                    </div>
+                    <div class="card-footer">
+                         <button class="btn btn-primary" (click)="openeModal(modalApprouve, souscription)"> Approuver <i class="fa fa-check-circle" aria-hidden="true"></i> </button>
+                         <button class="btn btn-danger" (click)="openDeleteModal(modalDelete, souscription)" style="float: right;">Supprimer <i class="fa fa-trash" aria-hidden="true"></i> </button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        
+    </ng-template>
+
+    
+    
+    <ng-template class="modal fade" #modalApprouve let-modal>
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Confirmation souscritpion</h5>
+            <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                Approuvez-vous vraimment la demande de {{ suscRequestToApprv.surname }} {{ suscRequestToApprv.username }} pour le {{ suscRequestToApprv.intitule }} ? 
+          </div> 
+          <div class="modal-footer">
+                <button class="btn btn-dark" (click)="close()">Annuler</button>
+                <button class="btn btn-primary" (click)="doApprouve()">Approuver <i class="fa fa-check-circle" aria-hidden="true"></i> </button>
+          </div>          
+    </ng-template>
+
+     <ng-template class="modal fade" #modalDelete let-modal>
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Supprimer</h5>
+            <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                Voulez-vous vraiment supprimer la demande de {{ suscRequestToDel.surname }} {{ suscRequestToDel.username }}  pour le {{ suscRequestToDel.intitule }} ? 
+          </div> 
+          <div class="modal-footer">
+                <button class="btn btn-dark" (click)="close()">Annuler</button>
+                <button class="btn btn-danger" (click)="doDelete()">Supprimer  <i class="fa fa-trash" aria-hidden="true"></i> </button>
+          </div>          
+    </ng-template>
+
+</div>

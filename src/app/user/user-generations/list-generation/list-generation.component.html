@@ -1,0 +1,170 @@
+<ng-container >
+  <div class="text-center">
+    <span *ngIf="generationSrv.waitingResponse">
+      <img src="../../../../assets/loader.gif" alt="" width="30px">
+    </span>
+  </div>
+        <div class="container-fluid">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                      <th scope="col">1ere Gen.</th>
+                      <th scope="col">2eme Gen.</th>
+                      <th scope="col">3eme Gen.</th>
+                      <th scope="col">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> <strong></strong>  <span class="badge bg-primary">{{ generationSrv.firstGenerationGain }}</span> XAF</td>
+                      <td> <span class="badge bg-primary">{{ generationSrv.secondGenerationGain }}</span> XAF </td>
+                      <td> <span class="badge bg-primary"> {{ generationSrv.thirdGenerationGain }}</span> XAF </td>
+                      <td> <span class="badge bg-success"> {{ generationSrv.gainTotal }}</span> XAF </td>
+                    </tr>
+                  </tbody>
+             </table>
+        </div>
+
+        <div class="row">
+                <div class="col">
+                    <nav class="nav nav-pills flex-column flex-sm-row">
+                        <div class="flex-sm-fill text-sm-center nav-link active" (click)="switchToFirst()" #firstGen>1ere Generation</div>
+                        <div class="flex-sm-fill text-sm-center nav-link" (click)="switchToSecond()" #secondGen>2eme Generation</div>
+                        <div class="flex-sm-fill text-sm-center nav-link" (click)="switchToThird()" #thirdGen>3eme Generation</div>
+                      </nav>
+                </div>
+        </div>
+
+        <div class="text-center">
+            <div *ngIf="accountServ.currentUsersData.profilImgUrl == null; then defaultImg else imgUrl" ></div>
+   
+            <ng-template #imgUrl>
+                <img [src]="accountServ.currentUsersData.profilImgUrl" alt="profils" class="rounded-circle" width="150" style="border-radius: 50%;">
+                
+            </ng-template>
+
+            <ng-template #defaultImg>
+                <img src="../../../assets/avatar.png" alt="" class="rounded-circle" width="150">
+            </ng-template>
+            <div class="mt-3">
+                <h4> Vous </h4>
+              </div>
+        </div>
+
+
+        <div class="divider"></div>
+        
+        <div *ngIf="showFirst && (!showSecond || !showThird )" >
+            <div class="text-center" *ngIf="generationSrv.firstGeneration.length == 0" >
+              <span> Aucune descendance sur cette generation. </span>
+           </div>
+            <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" style="margin-top: 10px;">
+                  
+              <div class="col" *ngFor="let user of generationSrv.firstGeneration" >
+                    <div class="card">
+                        <div *ngIf="user.userProfilImgUrl != null; then profil else default"></div>
+                       
+                        <ng-template #profil>
+                          <div class="text-center">
+                            <img [src]="user.userProfilImgUrl" alt=""
+                            alt="Hollywood Sign on The Hill" style="height: 150px;" width="150">
+                          </div>
+                        </ng-template>
+
+                        <ng-template #default>
+                          <div class="text-center">
+                            <img src="../../../assets/avatar.png" alt=""
+                            alt="Hollywood Sign on The Hill" style="height: 150px;" width="150">
+                          </div>
+                        </ng-template>
+
+                        <div class="card-body">
+                          <h5 class="card-title text-center"><strong>{{ user.username }} {{ user.surname }}</strong> <em style="float: right; color: greenyellow;"><span class="badge bg-success"> +{{ user.gainOnUser | parseGain}}  </span> XAF</em> </h5>
+                          <p class="card-text">
+                            <span> Pack : {{ user.pack_intitule }} </span> <br>
+                            <span> Souscription approuvé le: {{ user.souscription_approuved_at }} </span>
+                          </p>
+                        </div>
+                        
+                      </div>
+                </div>
+              
+            </div>
+        </div>
+
+        <div *ngIf="showSecond && (!showThird || !showFirst)" >
+            <div class="text-center" *ngIf="generationSrv.secondGeneration.length == 0" >
+                <span> Aucune descendance sur cette generation. </span>
+            </div>
+                <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" style="margin-top: 10px;">
+                  
+                  <div class="col" *ngFor="let user of generationSrv.secondGeneration" >
+                        <div class="card">
+                            <div *ngIf="user.userProfilImgUrl != null; then profil else default"></div>
+                           
+                            <ng-template #profil>
+                              <div class="text-center">
+                                <img [src]="user.userProfilImgUrl" alt=""
+                                alt="Hollywood Sign on The Hill" style="height: 150px;" width="150">
+                              </div>
+                            </ng-template>
+    
+                            <ng-template #default>
+                              <div class="text-center">
+                                <img src="../../../assets/avatar.png" alt=""
+                                alt="Hollywood Sign on The Hill" style="height: 150px;" width="150">
+                              </div>
+                            </ng-template>
+    
+                            <div class="card-body">
+                              <h5 class="card-title"><strong>{{ user.username }} {{ user.surname }}</strong>  <em style="float: right; color: greenyellow;"> <span class="badge bg-success"> +{{ user.gainOnUser | parseGain}}  </span> XAF</em> </h5>
+                              <p class="card-text">
+                                <span> Pack : {{ user.pack_intitule }} </span> <br>
+                                <span> Souscription approuvé le: {{ user.souscription_approuved_at }} </span>
+                              </p>
+                            </div>
+                            
+                          </div>
+                    </div>
+                  
+                </div>
+        </div>
+
+        <div *ngIf="showThird && (!showFirst || !showSecond)" >
+          <div class="text-center" *ngIf="generationSrv.thirdGeneration.length == 0" >
+              <span> Aucune descendance sur cette generation. </span>
+           </div>
+            <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" style="margin-top: 10px; margin-left: 5px; margin-right: 5px;">
+                  
+              <div class="col" *ngFor="let user of generationSrv.thirdGeneration" >
+                    <div class="card">
+                        <div *ngIf="user.userProfilImgUrl != null; then profil else default"></div>
+                       
+                        <ng-template #profil>
+                          <div class="text-center">
+                            <img [src]="user.userProfilImgUrl" alt=""
+                            alt="Hollywood Sign on The Hill" style="height: 150px;" width="150">
+                          </div>
+                        </ng-template>
+
+                        <ng-template #default>
+                          <div class="text-center">
+                            <img src="../../../assets/avatar.png" alt=""
+                            alt="Hollywood Sign on The Hill" style="height: 150px;" width="150">
+                          </div>
+                        </ng-template>
+
+                        <div class="card-body">
+                          <h5 class="card-title"> <strong>{{ user.username }} {{ user.surname }}</strong>  <em style="float: right; color: greenyellow;"><span class="badge bg-success"> +{{ user.gainOnUser | parseGain}}  </span> XAF</em> </h5>
+                          <p class="card-text">
+                            <span> Pack : {{ user.pack_intitule }} </span> <br>
+                            <span> Souscription approuvé le: {{ user.souscription_approuved_at }} </span>
+                          </p>
+                        </div>
+                        
+                      </div>
+                </div>
+              
+            </div>
+        </div>
+</ng-container> 

@@ -1,0 +1,64 @@
+ <div *ngIf="packService.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+     <i class="fa fa-times-circle" aria-hidden="true"></i>
+     <span> {{ packService.alert.errorMessage }} </span>
+     <button type="button" (click)="packService.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div *ngIf="packService.showAlertSucess"  class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+     <span> {{ packService.alert.successMessage}} </span>
+     <button type="button" (click)="packService.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="text-center">
+    <span *ngIf="packService.waitingResponse">
+      <img src="../../../../assets/loader.gif" alt="" width="30px">
+    </span>
+</div>
+
+<div class="card" style="margin-top: 10px; margin-right: 10%; margin-left: 10%;">
+    <div class="card-header">
+            <span> Creation Nouveau Pack </span>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="formPackControl">
+            
+            <div class="mb-3">
+                <label for="username" class="form-label">Intitule:</label>
+                <input type="text" class="form-control" formControlName="intitule" placeholder="entrer le nom du pack"  id="username" aria-describedby="">
+            </div>
+
+            <div class="mb-3">
+                <label for="prix" class="form-label">Prix :</label>
+                <input type="number" class="form-control" id="prix" formControlName="prix" placeholder="entrer le prix du pack" aria-describedby="emailHelp">
+                </div>
+
+            <div class="mb-3">
+                <label for="surname" class="form-label">Pourcentage : </label>
+                <input type="number" class="form-control" formControlName="pourcentage" placeholder="entrer le pourcentage de gain par Parrainage" id="surname" aria-describedby="">
+            </div>
+
+            <div class="mb-3">
+            <label for="mail" class="form-label">Pourcentage de Reduction:</label>
+            <input type="number" class="form-control" id="mail" formControlName="pourcentageReduction" placeholder="entrer le pourcentage de reduction par generation" aria-describedby="emailHelp">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Mini Description:</label>
+                <textarea formControlName="description" class="form-control" placeholder="ecrire ici " id="exampleInputEmail1" aria-describedby=""></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Description Generale:</label>
+                <textarea formControlName="description_globale" class="form-control" placeholder="ecrire ici " id="exampleInputEmail1" aria-describedby=""></textarea>
+            </div>
+
+            <div class="text-center">
+            <button type="submit" class="btn btn-primary" (click)="create()" style="width: 50%;"> Creer <i class="fa fa-plus" aria-hidden="true"></i> </button>
+            
+            <button type="submit" class="btn btn-danger" (click)="reset()" style="width: 40%;margin-left: 2%;"> Annuler </button>
+
+            </div>     
+        </form>             
+    </div>
+</div>

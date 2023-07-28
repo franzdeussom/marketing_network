@@ -1,0 +1,69 @@
+
+
+   <div class="text-center">
+      <span *ngIf="adminAccountSrv.waitingResponse">
+        <img src="../../../assets/loader.gif" alt="" width="30px">
+      </span> 
+   </div>
+      <!-- <div class="text-center" style="margin-bottom: 10px;">
+         <img src="../../assets/logo.png"  height="100px" width="50%" style="border-radius: 80%;" alt="">
+       </div>-->
+  
+
+   <div class="container p-3">
+    <div class="card mx-3 mt-n5 shadow-lg" style="border-radius: 10px; border-left:8px #007bff solid; border-right: none; border-top:none; border-bottom:none">
+      <div class="card-body">
+        
+          <div *ngIf="adminAccountSrv.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+            <span> {{ adminAccountSrv.alert.errorMessage }} </span>
+            <button type="button" (click)="adminAccountSrv.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          
+
+              <div class="text-center">
+                 <img src="../../../assets/adminLogo.avif" class="img-fluid logo-dark mb-2 " style="height: 150px; width: 65% !important;" alt="Logo"/><br>
+              </div>
+             
+             <h1 class="card-title mb-3 text-primary text-uppercase text-center">
+                 <span class="badge bg-primary"> Pancmiew App </span> 
+              </h1>
+
+              <form (submit)="doLogin()" [formGroup]="loginFormControl" style="margin-top: 10px;">
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form1Example1">Email address</label>
+                  <input type="email" id="form1Example1" placeholder="email" formControlName="email" class="form-control"  name="email" 
+                     [ngClass]="{ 'is-invalid': loginFormControl.controls['email'].touched && loginFormControl.controls['email'].invalid }"
+                   />
+                </div>
+                <div class="invalid-feedback" *ngIf="loginFormControl.controls['email'].invalid && (loginFormControl.controls['email'].dirty || loginFormControl.controls['email'].touched)">
+                        <span>Email est obligatoire pour l'authentification !</span>
+                </div>
+          
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form1Example2">Mot de passe</label>
+                  <input [type]="typeInput" placeholder="mot de passe" formControlName="password" id="form1Example2" class="form-control"  name="password" 
+                     [ngClass]="{'is-invalid': loginFormControl.controls['password'].touched && loginFormControl.controls['password'].invalid}" 
+                  />
+                </div>
+                <div class="invalid-feedback" *ngIf="loginFormControl.controls['password'].invalid && (loginFormControl.controls['password'].dirty || loginFormControl.controls['password'].touched)" >
+                        <span>Mot de passe obligatoire pour l'authentification !</span>
+                </div>
+          
+                <div class="row mb-4">
+                  <div class="col d-flex justify-content-center">
+          
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox"  id="form1Example3" (click)="showPassword()"/>
+                      <label class="form-check-label" for="form1Example3"> Afficher le mot de passe </label>
+                    </div>
+                  </div>
+                </div>
+          
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary" [disabled]="!loginFormControl.valid" style="width: 100%;">Se connecter <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+              </form> 
+            </div>
+          </div>
+        </div>
+

@@ -1,0 +1,68 @@
+<div *ngIf="accountSrv.showAlertSucess"  class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fa fa-times-circle" aria-hidden="true"></i>
+    <span> {{ accountSrv.alert.successMessage }} </span>
+    <button type="button" (click)="accountSrv.closeSuccessAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div *ngIf="accountSrv.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="fa fa-times-circle" aria-hidden="true"></i>
+    <span> {{ accountSrv.alert.errorMessage }} </span>
+    <button type="button" (click)="accountSrv.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="text-center">
+  <span *ngIf="accountSrv.waitingResponse">
+    <img src="../../../../assets/loader.gif" alt="" width="30px">
+  </span>
+</div>
+
+<div class="card" style="margin-top: 10px; margin-left: 10%;margin-right: 10%;">
+  <div class="card-header">
+        Nouveau Parrainage
+  </div>
+  <div class="card-body">
+
+    <form [formGroup]="formGenerateControl">
+        <div *ngIf="accountSrv.showCredentialsNewUser" class="text-center">
+            <p> Login: <span style="color: rgb(231, 137, 49);"> {{ accountSrv.newUserLogin }} </span>  </p>
+            <p> Mot de passe: <span style="color: red;"> {{ accountSrv.newUserPassword }} </span></p>
+        </div>
+    
+        <div class="mb-3">
+            <label for="username" class="form-label">Nom
+              <span *ngIf="formGenerateControl.controls['nom'].valid" class="text-center" style="color: yellowgreen;"> <i class="fa fa-check-circle" aria-hidden="true"></i> </span>
+            </label>
+            <input type="text" class="form-control" formControlName="nom" placeholder="entrer le nom"  id="username" aria-describedby="">
+        </div>
+    
+        <div class="mb-3">
+            <label for="surname" class="form-label">Prenom
+              <span *ngIf="formGenerateControl.controls['prenom'].valid" class="text-center" style="color: yellowgreen;" > <i class="fa fa-check-circle" aria-hidden="true"></i> </span>
+            </label>
+            <input type="text" class="form-control" formControlName="prenom" placeholder="entrer le prenom" id="surname" aria-describedby="">
+          </div>
+    
+        <div class="mb-3">
+          <label for="mail" class="form-label">Email
+              <span *ngIf="formGenerateControl.controls['email'].valid" class="text-center" style="color: yellowgreen;" > <i class="fa fa-check-circle" aria-hidden="true"></i> </span>
+          </label>
+          <input type="email" class="form-control" id="mail" formControlName="email" placeholder="example@gmail.com" aria-describedby="emailHelp">
+        </div>
+    
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">tel 
+                <span *ngIf="formGenerateControl.controls['tel'].valid" class="text-center" style="color: yellowgreen;"> <i class="fa fa-check-circle" aria-hidden="true"></i> </span>
+            </label>
+            <input type="number" formControlName="tel" class="form-control" placeholder="*** *** ***" id="exampleInputEmail1" aria-describedby="">
+        </div>
+    
+        <div class="text-center">
+           <button type="submit" class="btn btn-primary" (click)="generate()" style="width: 50%;"> Generer </button>
+           
+           <button type="submit" class="btn btn-danger" (click)="reset()" style="width: 40%;margin-left: 2%;"> Annuler </button>
+
+        </div>
+                
+      </form>
+  </div>
+</div>

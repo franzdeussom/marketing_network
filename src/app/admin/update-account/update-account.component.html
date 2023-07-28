@@ -1,0 +1,68 @@
+<div *ngIf="adminAccount.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="fa fa-times-circle" aria-hidden="true"></i>
+    <span> {{ adminAccount.alert.errorMessage }} </span>
+    <button type="button" (click)="adminAccount.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div *ngIf="adminAccount.showAlertSucess"  class="alert alert-success alert-dismissible fade show" role="alert">
+  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+    <span> {{ adminAccount.alert.successMessage}} </span>
+    <button type="button" (click)="adminAccount.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="text-center">
+  <span *ngIf="adminAccount.waitingResponse">
+    <img src="../../../assets/loader.gif" alt="" width="30px">
+  </span>
+</div>
+
+<div class="card" style="margin-left: 10%; margin-right: 10%; margin-top: 10px;">
+  
+  <div class="card-header">
+    <span>Mise à Jour profil D'Admininastration</span>
+  </div>
+
+  <div class="card-body">
+          <form [formGroup]="formUpdateAccount">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom</label>
+                        <input type="text" class="form-control" formControlName="username" [value]="formUpdateAccount.get('username')?.value" id="username" aria-describedby="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="surname" class="form-label">Prenom</label>
+                        <input type="text" class="form-control" formControlName="surname" [value]="formUpdateAccount.get('surname')?.value" id="surname" aria-describedby="">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="mail" class="form-label">Email:</label>
+                      <input type="email" class="form-control" id="mail" formControlName="email" [value]="formUpdateAccount.get('email')?.value" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">tel:</label>
+                        <input type="number" formControlName="tel" class="form-control" [value]="formUpdateAccount.get('tel')?.value" id="exampleInputEmail1" aria-describedby="">
+                    </div>
+                  
+        </form>
+
+    <div class="mb-3">
+        <label for="newPassword" class="form-label">Nouveau Mot de passe :</label>
+        <input type="password" class="form-control" [(ngModel)]="newPassword" id="newPassword">
+      </div> 
+
+      <div class="mb-3">
+        <label for="confrimPass" class="form-label">Confirmer le Mot de passe :</label>
+        <input type="password" class="form-control" [(ngModel)]="confirmPass" id="confrimPass">
+      </div> 
+
+      <div class="mb-3">
+        <label for="currentPassword" class="form-label">Mot de passe du compte :</label>
+        <input type="password" class="form-control" [(ngModel)]="OldPassword" id="currentPassw">
+      </div>
+
+  </div>
+    
+    <div class="card-footer text-center">
+      <button type="button" class="btn btn-primary" style="width: 50%;" (click)="doUpdate()">Enregistrer <i class="fa fa-save" aria-hidden="true"></i>  </button>
+    </div>
+</div>

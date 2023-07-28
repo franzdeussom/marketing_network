@@ -1,0 +1,32 @@
+
+<div class="container">
+    
+    <div *ngIf="packServe.myPacks.length === 0" >Vous ne disposez d'aucun pack actif</div>
+    
+    <div class="text-center">
+      <span *ngIf="packServe.waitingResponse">
+        <img src="../../../assets/loader.gif" alt="" width="30px">
+      </span>
+    </div>
+
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center" style="margin-top: 10px;">
+    <button style="float: right; margin-top: 10px;" *ngIf="accountSrv.currentUsersData.hasSuscribed" class="btn btn-primary" (click)="goToFormPage()" >Nouveau Parrainage</button>
+        
+     <div *ngFor="let pack of packServe.myPacks">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-body">
+                  <h5 class="card-title"> {{ pack.intitule }} </h5>
+                  <p class="card-text">
+                        <span> Consulter vos generations sur ce pack </span>
+                  </p>
+
+                  <button class="btn btn-primary" (click)="goToGeneration(pack.id_pack)">Consulter  <i class="fa fa-eye" aria-hidden="true"></i></button>
+                </div>
+              </div>
+         </div>
+       </div>
+    </div>
+</div>

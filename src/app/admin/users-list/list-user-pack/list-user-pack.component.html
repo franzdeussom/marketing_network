@@ -1,0 +1,28 @@
+
+<div class="container">
+  <div class="text-center">
+    <span *ngIf="packServe.waitingResponse">
+      <img src="../../../../assets/loader.gif" alt="" width="30px">
+    </span>
+  </div>  
+    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center" style="margin-top: 10px;">
+                     
+
+     <div *ngFor="let pack of packServe.myPacks">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-body">
+                  <h5 class="card-title"> {{ pack.intitule }} </h5>
+                  <p class="card-text">
+                        <span> Date d'approuvement :  <span>{{ pack.dateApprouved }}</span> </span><br>
+                        <span style="font-weight: bold;"> Consulter ses generations sur ce pack </span>
+                  </p>
+
+                  <button class="btn btn-primary" (click)="goToGeneration(pack.id_pack)">Consulter <i class="fa fa-eye" aria-hidden="true"></i> </button>
+                </div>
+              </div>
+         </div>
+       </div>
+    </div>
+</div>

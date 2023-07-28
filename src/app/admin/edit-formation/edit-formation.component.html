@@ -1,0 +1,37 @@
+<div class="text-center" style="margin-top: 10px;">
+  <span *ngIf="formationService.waitingResponse">
+    <img src="../../../assets/loader.gif" alt="" width="30px">
+  </span>
+</div>
+
+<div *ngIf="formationService.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+  <i class="fa fa-times-circle" aria-hidden="true"></i>
+  <span> {{ formationService.alert.errorMessage }} </span>
+  <button type="button" (click)="formationService.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div *ngIf="formationService.showAlertSucess"  class="alert alert-success alert-dismissible fade show" role="alert">
+<i class="fa fa-check-circle-o" aria-hidden="true"></i>
+  <span> {{ formationService.alert.successMessage}} </span>
+  <button type="button" (click)="formationService.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div style="margin-top: 10px;">
+    <div class="card mx-3 mt-n5 shadow-lg">
+
+        <div class="card-title text-end" style="margin-top: 10px; margin-right: 10px;">
+            <span *ngIf="formationService.formation.length > 0" > Derniere modification <b> {{ formationService.formation[0].lastUpdate_Date }} </b>  </span>
+        </div>
+
+        <div class="card-body container text-center">
+            <form class="row g-3 needs-validation" [formGroup]="formationService.formUpdate">
+              <textarea class="form-control" rows="100" formControlName="description" appAutoresize></textarea>
+      
+              
+            </form>
+        </div>
+        <div class="card-footer col-12">
+          <button class="btn btn-primary" type="submit" (click)="updateDescription()">Mettre à jour</button>
+        </div>
+    </div>
+</div>

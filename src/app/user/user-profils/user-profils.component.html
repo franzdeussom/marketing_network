@@ -1,0 +1,137 @@
+<div *ngIf="accountSrv.showAlertSucess"  class="alert alert-success alert-dismissible fade show" role="alert">
+  <i class="fa fa-times-circle" aria-hidden="true"></i>
+  <span> {{ accountSrv.alert.successMessage }} </span>
+  <button type="button" (click)="accountSrv.closeSuccessAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div *ngIf="accountSrv.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+  <i class="fa fa-times-circle" aria-hidden="true"></i>
+  <span> {{ accountSrv.alert.errorMessage }} </span>
+  <button type="button" (click)="accountSrv.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="text-center">
+  <span *ngIf="accountSrv.waitingResponse">
+    <img src="../../../assets/loader.gif" alt="" width="30px">
+  </span>
+</div>
+
+<div class="d-flex flex-column align-items-center">
+    <div *ngIf="accountSrv.currentUsersData.profilImgUrl == null; then defaultImg else imgUrl" ></div>
+   
+        <ng-template #imgUrl>
+            <img [src]="accountSrv.currentUsersData.profilImgUrl" alt="profils" class="rounded-circle" width="150">
+            
+        </ng-template>
+        <ng-template #defaultImg>
+            <img src="../../../assets/avatar.png" alt="" class="rounded-circle" width="150">
+        </ng-template>
+
+           <ng-template class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop" aria-hidden="true" #modalimg>
+                 <div class="modal-header">
+                   <h5 class="modal-title" id="staticBackdropLabel">Televerser une Image </h5>
+                   <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                   </button>
+                 </div>
+
+                 <div class="modal-body">
+                  <div class="file-loading">
+                    <input id="input-b9" name="input-b9" accept="image/png, image/jpeg, image/jpg" type="file" (change)="setPp($event)">
+                  </div>
+
+                  <div class="text-center">
+                    <img [src]="imgChoose"  width="50%" height="150px" style="border-radius: 50%;" alt="...">
+                  </div>
+                 </div>
+
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Annuler</button>
+                    <button type="button" class="btn btn-primary" (click)="DoUpdateImg()">Enregistrer</button>
+                 </div>                 
+           </ng-template>
+           
+
+      <div class="mt-3">
+        <h4>{{ accountSrv.currentUsersData.surname }} {{ accountSrv.currentUsersData.username }} </h4>
+        <p class="text-secondary mb-1">{{  accountSrv.currentUsersData.email }} </p>
+      </div>
+
+      <div class="card" style="width: 80%;">
+        <div class="card-header">
+                <span>Mon compte <i class="fa fa-user" aria-hidden="true"></i></span>
+        </div>
+      <div class="card-body">
+        <h5 class="card-title">Mes Informations </h5>
+        <p class="text-secondary mb-1">Numero Mobile : <span style="float: right;"> {{ accountSrv.currentUsersData.tel }} </span> </p>
+        <p class="text-secondary mb-1">Date de creation: <span style="float: right;"> {{ accountSrv.currentUsersData.create_at }} </span> </p>
+      </div>
+      <div class="card-footer">
+            <span> <button type="button" class="btn btn-primary" (click)="updateRequest(letmodal)">Modifier</button> </span>
+      </div>
+    </div>
+    
+    <ng-template class="modal" tabindex="-1" #letmodal let-modal>
+       
+            <div class="modal-header">
+              <h5 class="modal-title">Modification De Compte</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
+            </div> 
+            <div class="modal-body">
+
+              <div *ngIf="accountSrv.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                <span> {{ accountSrv.alert.errorMessage }} </span>
+                <button type="button" (click)="accountSrv.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+                <form [formGroup]="formUpdateAccount">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom</label>
+                        <input type="text" class="form-control" formControlName="nom" [value]="formUpdateAccount.get('nom')?.value" id="username" aria-describedby="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="surname" class="form-label">Prenom</label>
+                        <input type="text" class="form-control" formControlName="prenom" [value]="formUpdateAccount.get('prenom')?.value" id="surname" aria-describedby="">
+                      </div>
+
+                    <div class="mb-3">
+                      <label for="mail" class="form-label">Email:</label>
+                      <input type="email" class="form-control" id="mail" formControlName="email" [value]="formUpdateAccount.get('email')?.value" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">tel:</label>
+                        <input type="number" formControlName="tel" class="form-control" [value]="formUpdateAccount.get('tel')?.value" id="exampleInputEmail1" aria-describedby="">
+                    </div>
+
+                      
+                                     
+                  </form>
+
+                  <div class="mb-3">
+                    <label for="newPassword" class="form-label">Nouveau Mot de passe :</label>
+                    <input type="password" class="form-control" [(ngModel)]="newPassword" id="newPassword">
+                  </div> 
+
+                  <div class="mb-3">
+                    <label for="confrimPass" class="form-label">Confirmer le Mot de passe :</label>
+                    <input type="password" class="form-control" [(ngModel)]="confirmPass" id="confrimPass">
+                  </div> 
+
+                  <div class="mb-3">
+                    <label for="currentPassword" class="form-label">Mot de passe du compte :</label>
+                    <input type="password" class="form-control" [(ngModel)]="OldPassword" id="currentPassw">
+                  </div> 
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Quitter</button>
+              <button type="button" class="btn btn-primary" (click)="doUpdate()">Modifier <i class="fa fa-edit" aria-hidden="true"></i> </button>
+            </div>
+
+      </ng-template>
+    
+  </div>
+   

@@ -1,0 +1,64 @@
+
+<div class="container">
+    <div *ngIf="packService.showAlertError"  class="alert alert-danger alert-dismissible fade show" role="alert">
+         <i class="fa fa-times-circle" aria-hidden="true"></i>
+         <span> {{ packService.alert.errorMessage }} </span>
+         <button type="button" (click)="packService.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
+     <div *ngIf="packService.showAlertSucess"  class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+         <span> {{ packService.alert.successMessage}} </span>
+         <button type="button" (click)="packService.closeErrorAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="text-center">
+        <span *ngIf="packService.waitingResponse">
+          <img src="../../../../assets/loader.gif" alt="" width="30px">
+        </span>
+    </div>
+    
+    <div class="card" style="margin-top: 10px;">
+        <div class="card-header">
+                <span> Modiciation {{ packService.packToModify.intitule }} </span>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="formUpdateControl">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Intitule:</label>
+                    <input type="text" class="form-control" [value]="formUpdateControl.get('intitule')?.value" formControlName="intitule" placeholder="entrer le nom du pack"  id="username" aria-describedby="">
+                </div>
+
+                <div class="mb-3">
+                    <label for="prix" class="form-label">Prix : </label>
+                    <input type="number" class="form-control" [value]="formUpdateControl.get('prix')?.value" formControlName="prix" placeholder="entrer le prix du pack" id="prix" aria-describedby="">
+                </div>
+    
+                <div class="mb-3">
+                    <label for="surname" class="form-label">Pourcentage : </label>
+                    <input type="number" class="form-control" [value]="formUpdateControl.get('pourcentage')?.value" formControlName="pourcentage" placeholder="entrer le pourcentage de gain par Parrainage" id="surname" aria-describedby="">
+                </div>
+    
+                <div class="mb-3">
+                <label for="mail" class="form-label">Pourcentage de Reduction:</label>
+                <input type="number" class="form-control" [value]="formUpdateControl.get('pourcentageReduction')?.value" id="mail" formControlName="pourcentageReduction" placeholder="entrer le pourcentage de reduction par generation" aria-describedby="emailHelp">
+                </div>
+    
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Mini Description:</label>
+                    <textarea formControlName="description" [value]="formUpdateControl.get('description')?.value" class="form-control" placeholder="ecrire ici " id="exampleInputEmail1" aria-describedby=""></textarea>
+                </div>
+    
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Description Generale:</label>
+                    <textarea formControlName="description_globale" [value]="formUpdateControl.get('description_globale')?.value" class="form-control" placeholder="ecrire ici " id="exampleInputEmail1" aria-describedby=""></textarea>
+                </div>
+    
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" (click)="update()" style="width: 75%;">Enregistrer <i class="fa fa-save" aria-hidden="true"></i> </button>
+                            
+                </div>     
+            </form>
+        </div>
+    </div>
+</div>
+
