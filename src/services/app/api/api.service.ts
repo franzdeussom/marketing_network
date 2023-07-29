@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment.development';
 import { EnvService } from 'src/services/environement/env.service';
 
 @Injectable({
@@ -8,11 +9,11 @@ import { EnvService } from 'src/services/environement/env.service';
 export class ApiService {
   headers: any;
 
-  constructor(private api: HttpClient, private env: EnvService, 
-              
-              ) {
-    
-   }
+  env : any = {
+    server : environment.apiUrl
+  };
+
+  constructor(private api: HttpClient) { }
 
   createHeaders(): Object{  
       let appToken: any;
@@ -31,13 +32,11 @@ export class ApiService {
 
   post(endpoint: string, body: any){
       this.headers = this.createHeaders();
-      console.log(this.headers);
       return this.api.post(this.env.server+endpoint, body, { headers: this.headers });
   }
 
   get(endpoint: string, option?: any){
       this.headers = this.createHeaders();
-      console.log(this.headers);
 
       return this.api.get(this.env.server+endpoint, { headers: this.headers });
   }
