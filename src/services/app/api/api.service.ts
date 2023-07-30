@@ -13,7 +13,8 @@ export class ApiService {
     server : environment.apiUrl
   };
 
-  constructor(private api: HttpClient) { }
+  constructor(private api: HttpClient) {
+   }
 
   createHeaders(): Object{  
       let appToken: any;

@@ -12,7 +12,7 @@
         <ng-template #userList>
           <ul class="navbar-nav" *ngFor="let item of routes" >
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="[item.route]" (click)="navigate(item.route)" [routerLinkActive]="'active badge bg-success'"> {{ item.name }}  <i [class]="item.iconClass" aria-hidden="true"></i></a>
+              <a class="nav-link" [routerLink]="[item.route]" (click)="navigate(item.route)" [routerLinkActive]="'active  btn btn-dark'"> {{ item.name }}  <i [class]="item.iconClass" aria-hidden="true"></i></a>
             </li>
           </ul>
         </ng-template>
@@ -21,7 +21,7 @@
           <ul class="navbar-nav" *ngFor="let item of routeAdmin" >
             <li class="nav-item">
               
-              <a class="nav-link" [routerLink]="[item.route]" (click)="navigate(item.route)" [routerLinkActive]="'active badge bg-success'" > {{ item.name }}  <i [class]="item.iconClass" aria-hidden="true"></i></a>
+              <a class="nav-link" [routerLink]="[item.route]" (click)="navigate(item.route)" [routerLinkActive]="'active btn btn-dark'" > {{ item.name }}  <i [class]="item.iconClass" aria-hidden="true"></i></a>
             </li>
           </ul>
         </ng-template>

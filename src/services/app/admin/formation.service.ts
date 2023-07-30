@@ -46,8 +46,11 @@ export class FormationService {
       this.waitingResponse = true;
       this.api.get(Endpoint.GET_FORMATION).subscribe((resp: any)=>{
           if(Array.isArray(resp)){
-            this.formation = resp;
-            this.formUpdate.controls['description'].setValue(this.formation[0].description);
+            if(resp.length > 0){
+              this.formation = resp;
+              this.formUpdate.controls['description'].setValue(this.formation[0].description);
+  
+            }
           }
           this.waitingResponse = false;
         }, ()=>{
@@ -57,7 +60,8 @@ export class FormationService {
   }
 
   updateOrPost(){
-      if(this.formation.length == 0){
+      if(this.formation.length == 0 || this.description === ''){
+          this.newUpdateValue.description = 'Aucune entrée';
           this.postNewFormation();
       }else{
           this.update();
@@ -71,12 +75,13 @@ export class FormationService {
       this.api.put(Endpoint.UPDATE_FORMATION+this.newUpdateValue.id, this.newUpdateValue).subscribe((resp: any)=>{
           if(Object.keys(resp).length > 0){
             this.formation[0].lastUpdate_Date = resp.date;
-            this.waitingResponse = false;
-            this.activeAlertSucess(AlertMessage.UPDATE_SUCCESS);
-
           }
-      }, ()=> {
-        this.activeAlertError(AlertMessage.ERROR);
+          this.activeAlertSucess(AlertMessage.UPDATE_SUCCESS);
+
+          this.waitingResponse = false;
+
+      }, (error: any)=> {
+        this.activeAlertError(error.message);
           this.waitingResponse = false;
       });
   }
@@ -90,10 +95,10 @@ export class FormationService {
       this.api.post(Endpoint.POST_FORMATION, this.newUpdateValue).subscribe((resp)=>{
           if(Object.keys(resp).length > 0){
             this.waitingResponse = false;
-
+            this.activeAlertSucess('Text Ajouter avec succes !');
           }
-      }, ()=> {
-          this.activeAlertError(AlertMessage.ERROR);
+      }, (error: any)=> {
+          this.activeAlertError(error.message);
           this.waitingResponse = false;
       });
   }
