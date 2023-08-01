@@ -3,7 +3,7 @@ export class Pack{
             public id?: any,
             public created_by?: number,
             public intitule?: string,
-            public description?: string,
+            public description?: any,
             public prix?: any,
             public description_globale?: any,
             public pourcentage?: any,

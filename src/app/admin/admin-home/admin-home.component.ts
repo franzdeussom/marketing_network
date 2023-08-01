@@ -14,6 +14,8 @@ export class AdminHomeComponent {
   imgChoose: string ='';
   ext: any;
   packChoose: any;
+  dataPackChoose: Pack = new Pack();
+
   constructor(public packService : PackService,
               private accountAdminSrv: AdminAccountService,
               private route: Router,
@@ -90,5 +92,13 @@ export class AdminHomeComponent {
 
   goToFormPageNewPack(){
     this.route.navigateByUrl('create/pack');
+  }
+
+  closeModal(){
+      this.ngBmodal.dismissAll();
+  }
+
+  openModal(content: any, dataPack: Pack){
+      this.ngBmodal.open(content);
   }
 }

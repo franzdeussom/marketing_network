@@ -23,7 +23,7 @@ export class NavBarComponent {
         iconClass: 'fa fa-handshake-o'
       },
       {
-        name : 'Mon Profile',
+        name : 'Mon Profil',
         route : 'profil',
         iconClass: 'fa fa-user'
       },

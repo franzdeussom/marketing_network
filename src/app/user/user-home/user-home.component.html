@@ -28,11 +28,11 @@
                               alt="Hollywood Sign on The Hill" style="height: 250px;"/>
                             <div class="card-body">
                               <h5 class="card-title"> {{ pack.intitule }} <em style="float: right;">{{ pack.prix }} XAF</em> </h5>
-                              <p class="card-text">
+                              <div style="white-space: pre-line">
                                 {{ pack.description | slice:0: 150 }}
-                                <a class="btn btn-sm btn-white text-primary me-2" (click)="openeModal(packDetails, pack)">Voir plus...</a>
+                                <a *ngIf="pack.description.length > 150"  class="btn btn-sm btn-white text-primary me-2" (click)="openeModal(packDetails, pack)">Voir plus...</a>
 
-                              </p>
+                              </div>
                             </div>
                             <div class="card-footer">
                                 <span> <button class="btn btn-primary" (click)="openeModal(modal, pack)"> Souscrire <i class="fa fa-plus" aria-hidden="true"></i> </button> </span>
@@ -54,9 +54,9 @@
                   <div class="modal-text text-center">
                     <h2> Plus d'info sur: {{ dataPackChoose.intitule}} </h2>
 
-                    <p class="modal-text">
+                    <div style="white-space: pre-line">
                         {{ dataPackChoose.description }}
-                    </p>
+                    </div>
                   </div>
           
                   <div class="modal-footer">
@@ -73,7 +73,7 @@
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <div class="modal-body">
+                      <div class="modal-body" style="white-space: pre-line">
                           {{ textConfirmation }}
                       </div> 
                       <div class="modal-footer">
@@ -84,26 +84,4 @@
                 </ng-template>                
             </div>
     </div>
-</div>
-
-<div class="modal custom-modal fade" id="detailPack" role="dialog">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-
-      <div class="modal-body">
-        <div class="modal-icon text-center mb-3">
-          <i class="fa fa-user-times" aria-hidden="true"></i>
-        </div>
-        <div class="modal-text text-center">
-          <h2> Plus d'info sur:  </h2>
-        </div>
-      </div>
-
-      <div class="modal-footer text-center">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-btn2">
-          Fermer
-        </button>
-      </div>
-    </div>
-  </div>
 </div>
