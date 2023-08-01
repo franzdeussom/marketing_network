@@ -17,6 +17,7 @@ export class UserHomeComponent {
   showSpinner : boolean = true;
   textConfirmation: string = '';
   idPackChoose: number = 0;
+  dataPackChoose: Pack = new Pack();
 
   constructor(public pageSecurity: PageSecurityService, private route: Router,
               public packService: PackService,

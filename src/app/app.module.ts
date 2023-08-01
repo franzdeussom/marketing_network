@@ -25,6 +25,7 @@ import { ParseGainPipe } from 'src/services/app/pipe/parse-gain.pipe';
 import { EditFormationComponent } from './admin/edit-formation/edit-formation.component';
 import { FormationComponent } from './user/formation/formation.component';
 import { AutoresizeDirective } from 'src/services/app/admin/autoresize.directive';
+import { SlicePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AutoresizeDirective } from 'src/services/app/admin/autoresize.directive
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SlicePipe,
   ],
   providers: [  ],
   bootstrap: [AppComponent]

@@ -22,14 +22,16 @@
 
                 <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" style="margin-top: 10px;">
                   
-                  <div class="col" *ngFor="let pack of packService.listPack" >
+                  <div class="col" *ngFor="let pack of packService.listPack" (click)="dataPackChoose = pack"  >
                         <div class="card">
                             <img [src]="pack.imgUrl" class="card-img-top"
                               alt="Hollywood Sign on The Hill" style="height: 250px;"/>
                             <div class="card-body">
                               <h5 class="card-title"> {{ pack.intitule }} <em style="float: right;">{{ pack.prix }} XAF</em> </h5>
                               <p class="card-text">
-                                {{ pack.description }}
+                                {{ pack.description | slice:0: 150 }}
+                                <a class="btn btn-sm btn-white text-primary me-2" (click)="openeModal(packDetails, pack)">Voir plus...</a>
+
                               </p>
                             </div>
                             <div class="card-footer">
@@ -39,6 +41,30 @@
                     </div>
                   
                 </div>
+
+                
+                <ng-template class="modal fade" #packDetails let-modal>
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Details </h5>
+                    <button type="button" class="btn btn-sm btn-white" data-dismiss="modal" (click)="closeModal()" aria-label="Close">
+                      <span aria-hidden="true" style="font-size: 18px;">&times;</span>
+                    </button>
+                  </div>
+    
+                  <div class="modal-text text-center">
+                    <h2> Plus d'info sur: {{ dataPackChoose.intitule}} </h2>
+
+                    <p class="modal-text">
+                        {{ dataPackChoose.description }}
+                    </p>
+                  </div>
+          
+                  <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Quitter</button>
+
+                   </div>  
+                </ng-template>
+
 
                 <ng-template class="modal fade" #modal let-modal>
                       <div class="modal-header">
@@ -58,4 +84,26 @@
                 </ng-template>                
             </div>
     </div>
+</div>
+
+<div class="modal custom-modal fade" id="detailPack" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <div class="modal-icon text-center mb-3">
+          <i class="fa fa-user-times" aria-hidden="true"></i>
+        </div>
+        <div class="modal-text text-center">
+          <h2> Plus d'info sur:  </h2>
+        </div>
+      </div>
+
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-btn2">
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

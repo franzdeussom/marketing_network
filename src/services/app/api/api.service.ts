@@ -13,7 +13,8 @@ export class ApiService {
     server : environment.apiUrl
   };
 
-  constructor(private api: HttpClient) {
+  constructor(private api: HttpClient, envi: EnvService) {
+        this.env.server = envi.server;
    }
 
   createHeaders(): Object{  
